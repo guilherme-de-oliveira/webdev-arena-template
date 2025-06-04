@@ -499,3 +499,161 @@ const App = () => {
 };
 
 export default App;
+
+
+// import React from "react";
+
+// const GridMap = () => {
+//   const containerStyle = {
+//     display: "grid",
+//     gridTemplateColumns: "repeat(10, 1fr)",
+//     gridTemplateRows: "repeat(20, 40px)",
+//     gap: "2px",
+//     maxWidth: "800px",
+//     margin: "0 auto",
+//     backgroundColor: "#cde070",
+//     padding: "10px",
+//     borderRadius: "20px",
+//     position: "relative",
+//     overflow: "hidden",
+//   };
+
+//   const pulseAnim = {
+//     animation: "pulse 2s infinite",
+//   };
+
+//   const keyframesStyle = `
+//     @keyframes pulse {
+//       0% { box-shadow: 0 0 0px #f3c17c; }
+//       50% { box-shadow: 0 0 15px #f3c17c; }
+//       100% { box-shadow: 0 0 0px #f3c17c; }
+//     }
+//   `;
+
+//   const basePathStyle = {
+//     backgroundColor: "#e7b873",
+//     zIndex: 1,
+//     ...pulseAnim,
+//   };
+
+//   const pathStyles = {
+//     vertical: {
+//       ...basePathStyle,
+//     },
+//     horizontal: {
+//       ...basePathStyle,
+//     },
+//     cornerTL: {
+//       ...basePathStyle,
+//       borderTopLeftRadius: "40px",
+//     },
+//     cornerTR: {
+//       ...basePathStyle,
+//       borderTopRightRadius: "40px",
+//     },
+//     cornerBL: {
+//       ...basePathStyle,
+//       borderBottomLeftRadius: "40px",
+//     },
+//     cornerBR: {
+//       ...basePathStyle,
+//       borderBottomRightRadius: "40px",
+//     },
+//   };
+
+//   const arrowStyle = {
+//     fontSize: "20px",
+//     color: "#ffffffcc",
+//     zIndex: 2,
+//     justifySelf: "center",
+//     alignSelf: "center",
+//     pointerEvents: "none",
+//   };
+
+//   const treeStyle = (color) => ({
+//     backgroundColor: color,
+//     borderRadius: "10px",
+//     zIndex: 2,
+//   });
+
+//   const flowerStyle = {
+//     backgroundColor: "white",
+//     borderRadius: "50%",
+//     border: "4px solid yellow",
+//     width: "20px",
+//     height: "20px",
+//     justifySelf: "center",
+//     alignSelf: "center",
+//     zIndex: 3,
+//   };
+
+//   const levelButtonStyle = (locked) => ({
+//     backgroundColor: locked ? "#bcd4f7" : "#fcd966",
+//     borderRadius: "50%",
+//     width: "50px",
+//     height: "50px",
+//     justifySelf: "center",
+//     alignSelf: "center",
+//     display: "flex",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     fontSize: "24px",
+//     color: locked ? "#7baaf7" : "#fff",
+//     boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+//     zIndex: 4,
+//   });
+
+//   const GridItem = ({ col, row, children = null, style = {} }) => (
+//     <div style={{ gridColumn: col, gridRow: row, ...style }}>{children}</div>
+//   );
+
+//   return (
+//     <>
+//       <style>{keyframesStyle}</style>
+//       <div style={containerStyle}>
+//         {/* Curved + Straight Path Segments */}
+//         <GridItem col={5} row={20} style={pathStyles.vertical} />
+//         <GridItem col={5} row={19} style={pathStyles.vertical}><div style={arrowStyle}>↑</div></GridItem>
+//         <GridItem col={6} row={18} style={pathStyles.cornerTR} />
+//         <GridItem col={6} row={17} style={pathStyles.vertical}><div style={arrowStyle}>↑</div></GridItem>
+//         <GridItem col={6} row={16} style={pathStyles.cornerBR} />
+//         <GridItem col={5} row={15} style={pathStyles.vertical}><div style={arrowStyle}>↑</div></GridItem>
+//         <GridItem col={6} row={14} style={pathStyles.cornerTR} />
+//         <GridItem col={6} row={13} style={pathStyles.vertical}><div style={arrowStyle}>↑</div></GridItem>
+//         <GridItem col={5} row={12} style={pathStyles.cornerBL} />
+//         <GridItem col={5} row={11} style={pathStyles.vertical}><div style={arrowStyle}>↑</div></GridItem>
+//         <GridItem col={5} row={10} style={pathStyles.vertical}><div style={arrowStyle}>↑</div></GridItem>
+//         <GridItem col={5} row={9} style={pathStyles.vertical}><div style={arrowStyle}>↑</div></GridItem>
+//         <GridItem col={5} row={8} style={pathStyles.vertical}><div style={arrowStyle}>↑</div></GridItem>
+//         <GridItem col={5} row={7} style={pathStyles.vertical}><div style={arrowStyle}>↑</div></GridItem>
+//         <GridItem col={5} row={6} style={pathStyles.vertical} />
+
+//         {/* Trees */}
+//         <GridItem col={3} row={5} style={treeStyle("#7ec850")} />
+//         <GridItem col={7} row={6} style={treeStyle("#e5aa32")} />
+//         <GridItem col={4} row={12} style={treeStyle("#6cd254")} />
+//         <GridItem col={7} row={13} style={treeStyle("#ffbb33")} />
+//         <GridItem col={3} row={17} style={treeStyle("#ffa629")} />
+//         <GridItem col={7} row={17} style={treeStyle("#67db5a")} />
+//         <GridItem col={8} row={20} style={treeStyle("#5dbd40")} />
+
+//         {/* Flowers */}
+//         <GridItem col={2} row={7} style={flowerStyle} />
+//         <GridItem col={8} row={14} style={flowerStyle} />
+//         <GridItem col={3} row={19} style={flowerStyle} />
+//         <GridItem col={6} row={11} style={flowerStyle} />
+
+//         {/* Level Buttons */}
+        
+//         <GridItem col={5} row={19} style={levelButtonStyle(currentLevel || completedLevels.includes(words[0]))}></GridItem>
+//         <GridItem col={6} row={18} style={currentLevel || completedLevels.includes(words[1])}>★</GridItem>
+//         <GridItem col={5} row={15} style={currentLevel || completedLevels.includes(words[2])}>🔒</GridItem>
+//         <GridItem col={6} row={13} style={currentLevel || completedLevels.includes(words[3])}>🔒</GridItem>
+//         <GridItem col={5} row={10} style={currentLevel || completedLevels.includes(words[4])}>🔒</GridItem>
+//         <GridItem col={5} row={7} style={currentLevel || completedLevels.includes(words[5])}>🔒</GridItem>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default GridMap;
