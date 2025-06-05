@@ -1,115 +1,553 @@
-import Image from "next/image";
-import localFont from "next/font/local";
+import React from "react";
+import { motion } from "framer-motion";
+import { Bookmark, EllipsisVertical, Clock } from "lucide-react";
+import Link from "next/link";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+export default function HomePage() {
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
 
-export default function Home() {
+  const newsItems = [
+    {
+      id: 231,
+      title: "US Senate Passes Landmark Infrastructure Bill",
+      description: "A historic $1.2 trillion plan to rebuild America's roads, bridges, and broadband networks."
+    },
+    {
+      id: 232,
+      title: "Global Leaders Gather for Climate Summit in Paris",
+      description: "Discussions center around emissions targets, clean energy innovations, and climate finance."
+    },
+    {
+      id: 233,
+      title: "Tech Giant Unveils Breakthrough in Quantum Computing",
+      description: "Promises to revolutionize industries from cryptography to pharmaceuticals."
+    },
+    {
+      id: 234,
+      title: "New Vaccine Shows Promise Against Emerging Virus Variant",
+      description: "Early trials show increased efficacy and fewer side effects compared to earlier versions."
+    },
+    {
+      id: 235,
+      title: "Electric Vehicle Sales Surge Globally in 2025",
+      description: "Consumers embrace sustainability with record-breaking EV purchases this year."
+    },
+    {
+      id: 236,
+      title: "Breakthrough in Renewable Energy Storage Unveiled",
+      description: "Scientists develop a new battery with 5x energy density."
+    },
+    {
+      id: 237,
+      title: "Archaeologists Discover Ancient City in the Amazon",
+      description: "Findings could rewrite the history of early civilizations in South America."
+    },
+    {
+      id: 238,
+      title: "AI Beats Human Champions in Multi-Disciplinary Games",
+      description: "A new AI sets records in both strategic and creative competitions."
+    },
+    {
+      id: 239,
+      title: "Mars Rover Sends Back Most Detailed Images Yet",
+      description: "NASA reveals unprecedented surface detail from the red planet."
+    },
+    {
+      id: 240,
+      title: "Cities Turn to Smart Infrastructure to Combat Climate Change",
+      description: "Urban centers are deploying technology to reduce emissions and improve resilience."
+    }
+  ];
+
+  const newsItems2 = [
+    {
+      id: 231,
+      title: "Global Cybersecurity Summit Addresses Rising Threats",
+      description:
+        "Leading experts and policymakers gather for a global cybersecurity summit to discuss strategies for combating the escalating threats in the digital landscape.",
+    },
+    {
+      id: 232,
+      title: "Artificial Intelligence Enhances Early Cancer Detection",
+      description:
+        "Advancements in artificial intelligence contribute to early cancer detection, offering a more accurate and efficient diagnosis that could significantly impact treatment results.",
+    },
+    {
+      id: 233,
+      title: "Tech Entrepreneur Shares Tips for Work-Life Balance",
+      description:
+        "Adedeji Adeboye shares insights on achieving a healthy work-life balance in the fast-paced tech industry. The article explores practical tips for maintaining balanced well-being.",
+    },
+    {
+      id: 234,
+      title: "Disney Unveils New Streaming Service with Exclusive Content",
+      description:
+        "Disney announces the launch of a new streaming service, featuring exclusive content from beloved franchises. The move further intensifies the competition in the streaming industry.",
+    },
+    {
+      id: 235,
+      title: "Olympic Board Reveals Host City for 2032 Summer Games",
+      description:
+        "The International Olympic Committee announces the host city for the 2032 Summer Games, sparking excitement and anticipation among sports enthusiasts worldwide.",
+    },
+    {
+      id: 236,
+      title: "Researchers Make Wave in Alzheimer’s Disease Treatment",
+      description:
+        "Scientists achieve a significant breakthrough in Alzheimer’s disease treatment, offering hope for millions affected by the condition. The research unveils promising results.",
+    },
+    {
+      id: 237,
+      title: "Hollywood Icon Receives Lifetime Achievement Award",
+      description:
+        "A beloved Hollywood star is honoured with a prestigious lifetime achievement award, recognizing their exceptional contributions to the film industry over the years.",
+    },
+    {
+      id: 238,
+      title: "Epic Cross-Country Cycling Race Kicks Off",
+      description:
+        "Cyclists from around the world embark on an epic cross-country race, challenging their endurance and showcasing the spirit of adventure in the world of competitive cycling.",
+    },
+  ];
+
+  const cookingItems = [
+    {
+      id: 31,
+      title: "Italian Pasta",
+      description:
+        "Leading experts and policymakers gather for a global cybersecurity summit to discuss strategies for combating the escalating threats in the digital landscape.",
+    },
+    {
+      id: 32,
+      title: "The art of cooking",
+      description:
+        "Advancements in artificial intelligence contribute to early cancer detection, offering a more accurate and efficient diagnosis that could significantly impact treatment results.",
+    },
+    {
+      id: 33,
+      title: "Roasted portatoes",
+      description:
+        "Adedeji Adeboye shares insights on achieving a healthy work-life balance in the fast-paced tech industry. The article explores practical tips for maintaining balanced well-being.",
+    },
+    {
+      id: 34,
+      title: "Vegetarion food like never",
+      description:
+        "Disney announces the launch of a new streaming service, featuring exclusive content from beloved franchises. The move further intensifies the competition in the streaming industry.",
+    },
+  ];
+
+  const bestOf2023Items = [
+    {
+      id: 301,
+      title: "Blockbuster Bliss: Top 2023 Movies That Owned the Big Screen",
+      description: "From heartwarming dramas to action-packed adventures, explore the must-watch films that dominated cinemas and captured audiences' hearts in 2023.",
+      readTime: "5 min read"
+    },
+    {
+      id: 302,
+      title: "TikTok Triumphs: The Viral Trends That Defined 2023",
+      description: "Delve into the TikTok trends that took the internet by storm, from dance crazes to challenges that kept us scrolling and sharing throughout the year.",
+      readTime: "4 min read"
+    },
+    {
+      id: 3,
+      title: "TV Shows: Best Shows That Glued Us to the Couch in 2023",
+      description: "Uncover the television series that kept us binge-watching, laughing, and crying, making 2023 a remarkable year for small-screen entertainment.",
+      readTime: "4 min read"
+    }
+  ];
+
+  const categories = [
+    "Politics",
+    "Climate",
+    "Technology",
+    "Health",
+    "Transportation",
+    "Energy",
+    "Archaeology",
+    "Artificial Intelligence",
+    "Space",
+    "Urban Development"
+  ];
+
+  const [bookmarks, setBookmarks] = React.useState<number[]>([]);
+
+  const toggleBookmark = (id: number) => {
+    setBookmarks((prev) =>
+      prev.includes(id) ? prev.filter((b) => b !== id) : [...prev, id]
+    );
+  };
+
+  const [email, setEmail] = React.useState<string>("");
+  const [subscribed, setSubscribed] = React.useState<boolean>(false)
+
+  const handleSubscribe = () => {
+    if (email.trim()) {
+      setSubscribed(true);
+      setEmail("");
+      setTimeout(() => setSubscribed(false), 3000);
+    }
+  };
+  const [query] = React.useState("");
+
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="bg-white text-black">
+      {/* Navigation */}
+      <header className="flex flex-wrap md:flex-nowrap justify-between items-center p-4 border-b gap-4">
+        <div className="flex flex-wrap md:flex-nowrap items-center space-x-4 w-full md:w-auto">
+          <div className="text-2xl font-bold">ZENITH</div>
+          <nav className="flex flex-wrap space-x-4 text-sm">
+          <a href="#home" className="hover:underline">Home</a>
+            <a href="#latest-news" className="hover:underline">Latest News</a>
+            <a href="#top-picks" className="hover:underline">Top Picks</a>
+            <a href="#best-of-2025" className="hover:underline">Best of 2025</a>
+            <a href="#newsletter" className="hover:underline">Newsletter</a>
+          </nav>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2 w-full md:w-auto">
+          <input
+            type="text"
+            placeholder="Search..."
+            className="p-1 px-2 border rounded text-sm w-full sm:w-auto"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                if (query.trim()) {
+                  window.location.hash = `#search/${encodeURIComponent(query.trim())}`;     
+                }         
+              }
+            }}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <div className="flex space-x-2">
+            <a href="#signin" className="text-sm px-3 py-1 border rounded hover:bg-gray-100">Sign In</a>
+            <a href="#signup" className="text-sm px-3 py-1 bg-black text-white rounded hover:bg-gray-800">Sign Up</a>
+          </div>
+        </div>
+      </header>
+      
+      {/* Header with Large Logo and Categories */}
+      <section id="home" className="border-gray-400">
+        <div className="text-5xl md:text-9xl font-bold text-center text-gray-100 tracking-wider mb-4">ZENITH</div>
+        <div className="border-t border-gray-300" />
+        <div className="flex justify-between items-center px-4 py-2 text-sm">
+          <div className="flex flex-wrap gap-4 text-black">
+              <a href="#Politics" className="hover:underline">Politics</a>
+              <a href="World News" className="hover:underline">World News</a>
+              <a href="#BusinessandFinance" className="hover:underline">Business and Finance</a>
+              <a href="#ScienceandTechnology" className="hover:underline">Science and Technology</a>
+              <a href="#Entertainment" className="hover:underline">Entertainment</a>
+              <a href="#Sports" className="hover:underline">Sports</a>
+              <a href="#Wellness" className="hover:underline">Wellness</a>
+              <a href="#Lifestyle" className="hover:underline">Lifestyle</a>
+          </div>
+          <div className="flex items-center space-x-2 text-gray-700">
+            <input
+              type="text"
+              placeholder="Search"
+              className="focus:outline-none text-sm px-2 py-1"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  if (query.trim()) {
+                    window.location.hash = `#search/${encodeURIComponent(query.trim())}`;     
+                  }         
+                }
+              }}
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 text-black"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+            </svg>
+          </div>
+        </div>
+        <hr className="my-8 mt-0 mb-1 border-gray-300" />
+      </section>
+
+      {/* Latest News Section */}
+      <section id="latest-news" className="p-6 pb-0">
+        <h2 className="text-xl font-semibold mb-4">Latest News</h2>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          {[0, 4, 7].map((start, index) => (
+            <div
+              key={index}
+              className={`flex flex-col gap-4 ${
+                index === 0 ? 'md:col-span-3' : index === 1 ? 'md:col-span-6' : 'md:col-span-3'
+              }`}
+            >
+              {newsItems.slice(start, start + (index === 1 ? 3 : 4)).map((item, idx) => (
+                <Link key={item.id} href={`#${item.id}`} scroll={false}>
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex flex-col overflow-hidden rounded cursor-pointer transition-transform duration-200 hover:shadow-md"
+                  variants={fadeInUp}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ duration: 0.4, delay: idx * 0.2 }}
+                >
+                  <img
+                    src={`https://picsum.photos/id/${item.id}/400/300`}
+                    alt={item.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="space-y-2 p-2">
+                    <h3 className="font-semibold text-md">{item.title}</h3>
+                    <p className="text-sm text-gray-600">{item.description}</p>
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <div className="flex items-center gap-1">
+                        <Clock size={14} />
+                        <span>3 min read</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            toggleBookmark(item.id);
+                          }}
+                          className={`hover:text-black ${bookmarks.includes(item.id) ? 'text-black' : 'text-gray-400'}`}
+                        >
+                          <Bookmark
+                            size={16}
+                            fill={bookmarks.includes(item.id) ? 'currentColor' : 'none'}
+                          />
+                        </button>
+                        <button className="hover:text-black" onClick={(e) => e.preventDefault()}>
+                          <EllipsisVertical size={16} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </Link>
+              ))}
+              {index === 1 && (
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {categories.map((category, index) => (
+                    <span
+                      key={index}
+                      className="text-sm px-3 py-1 border rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer"
+                    >
+                      {category}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <hr className="my-8 mb-1 border-gray-300" />
+
+      </section>
+
+
+      {/* Top Picks Section */}
+      <section id="top-picks" className="p-6">
+        <h2 className="text-xl font-semibold mb-4">Top Picks</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {newsItems2.map((item, index) => (
+            <Link key={item.id} href={`#${item.id}`} scroll={false}>
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              key={item.id}
+              className="flex flex-col overflow-hidden rounded cursor-pointer transition-transform duration-200 hover:shadow-md"
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+            >
+              <img
+                src={`https://picsum.photos/id/${item.id}/400/300`}
+                alt={item.title}
+                className="w-full h-40 object-cover"
+              />
+              <div className="space-y-2 p-2">
+                <h3 className="font-semibold text-md leading-snug">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-gray-600 leading-tight">
+                  {item.description}
+                </p>
+                <div className="flex items-center justify-between text-xs text-gray-500">
+                  <div className="flex items-center gap-1">
+                    <Clock size={14} />
+                    <span>{Math.floor(Math.random() * 10) + 2} min read</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => toggleBookmark(item.id)}
+                      className={`hover:text-black ${bookmarks.includes(item.id) ? 'text-black' : 'text-gray-400'}`}
+                    >
+                      <Bookmark
+                        size={16}
+                        fill={bookmarks.includes(item.id) ? 'currentColor' : 'none'}
+                      />
+                    </button>
+                    <button className="hover:text-black">
+                      <EllipsisVertical size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            </Link>
+          ))}
+        </div>
+        <hr className="my-8 mb-1 border-gray-300" />
+
+      </section>
+
+      {/* Best of 2023 Section */}
+      <section id="best-of-2025" className="px-6">
+        <h2 className="text-xl font-semibold mb-6 pb-2">Best of 2023</h2>
+        <div className="grid gap-8">
+          {bestOf2023Items.map((item) => (
+            <Link key={item.id} href={`#${item.id}`} scroll={false}>
+            <div key={item.id} className="grid grid-cols-1 md:grid-cols-2 gap-6 border-b pb-6 cursor-pointer transition-transform duration-200">
+              <div>
+                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-600 mb-4">{item.description}</p>
+                <div className="flex items-center text-xs text-gray-500">
+                  <Clock size={14} className="mr-1" />
+                  <span>{item.readTime}</span>
+                </div>
+              </div>
+              <img
+                src={`https://picsum.photos/id/${item.id}/500/300`}
+                alt={item.title}
+                className="w-full h-48 object-cover rounded"
+              />
+            </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+      
+      {/* Cooking Section */}
+      <section className="p-6">
+        <h2 className="text-xl font-semibold mb-4">Cooking</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {cookingItems.map((item, index) => (
+            <Link key={item.id} href={`#${item.id}`} scroll={false}>
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              key={item.id}
+              className="flex flex-col overflow-hidden rounded cursor-pointer transition-transform duration-200 hover:shadow-md"
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+            >
+              <img
+                src={`https://picsum.photos/id/${item.id}/400/300`}
+                alt={item.title}
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-4 space-y-2">
+                <h3 className="font-semibold text-md leading-snug">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-gray-600 leading-tight">
+                  {item.description}
+                </p>
+                <div className="flex items-center justify-between text-xs text-gray-500">
+                  <div className="flex items-center gap-1">
+                    <Clock size={14} />
+                    <span>{Math.floor(Math.random() * 10) + 2} min read</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => toggleBookmark(item.id)}
+                      className={`hover:text-black ${bookmarks.includes(item.id) ? 'text-black' : 'text-gray-400'}`}
+                    >
+                      <Bookmark
+                        size={16}
+                        fill={bookmarks.includes(item.id) ? 'currentColor' : 'none'}
+                      />
+                    </button>
+                    <button className="hover:text-black">
+                      <EllipsisVertical size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section id="newsletter" className="px-6 py-12 bg-white text-black">
+        <h2 className="text-xl font-semibold mb-6 border-b pb-2">Newsletter</h2>
+
+        <p className="text-2xl font-semibold mb-4 max-w-2xl">
+          Subscribe to our newsletter now and step into a world of timely updates, curated stories,
+          <span className="text-gray-400">
+            {" "}
+            and behind-the-scenes glimpses. Whether you are a tech enthusiast, a foodie, or a pop
+            culture connoisseur, our newsletter caters to all tastes and interests.
+          </span>
+        </p>
+        <div className="flex space-x-2 max-w-md">
+          <input
+            type="email"
+            placeholder="Enter your email address"
+            className="px-4 py-2 bg-gray-100 rounded-full text-sm w-full"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <button
+            onClick={handleSubscribe}
+            className="px-4 py-2 bg-gray-200 text-black text-sm font-medium rounded-full"
+          >
+            Subscribe
+          </button>
+        </div>
+        {subscribed && (
+          <p className="text-green-600 text-sm mt-2">Thanks for subscribing!</p>
+        )}
+      </section>
+
+
+      {/* Footer */}
+      <footer className="bg-black text-white p-6 text-sm">
+  <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-700 pb-4 mb-4 gap-4">
+    <div className="flex flex-wrap gap-2 md:space-x-4">
+      <a href="#home" className="hover:underline">Homepage</a>
+      <a href="#product" className="hover:underline">Product</a>
+      <a href="#solutions" className="hover:underline">Solutions</a>
+      <a href="#pricing" className="hover:underline">Pricing</a>
+      <a href="#news" className="hover:underline">News</a>
+    </div>
+    <div className="flex flex-wrap gap-2 md:space-x-4">
+      <a href="https://instagram.com" target="_blank" className="hover:underline">Instagram</a>
+      <a href="https://twitter.com" target="_blank" className="hover:underline">Twitter</a>
+      <a href="https://linkedin.com" target="_blank" className="hover:underline">LinkedIn</a>
+      <a href="https://tiktok.com" target="_blank" className="hover:underline">TikTok</a>
+      <a href="https://facebook.com" target="_blank" className="hover:underline">Facebook</a>
+    </div>
+  </div>
+
+  <div className="text-5xl md:text-9xl font-bold text-center text-gray-800 tracking-wider mb-4">ZENITH</div>
+
+  <div className="border-t border-gray-700 pt-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <span>© 2023 Appose Blog. All Rights Reserved.</span>
+    <div className="flex flex-wrap gap-2 md:space-x-4">
+      <a href="#privacy" className="hover:underline">Privacy Policy</a>
+      <a href="#terms" className="hover:underline">Terms of Service</a>
+      <a href="#contact" className="hover:underline">Contact</a>
+    </div>
+  </div>
+</footer>
     </div>
   );
 }
