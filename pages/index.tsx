@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Bookmark, EllipsisVertical, Clock } from "lucide-react";
+import { Bookmark, EllipsisVertical, Clock, Search, Dot } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -13,52 +13,62 @@ export default function HomePage() {
     {
       id: 231,
       title: "US Senate Passes Landmark Infrastructure Bill",
-      description: "A historic $1.2 trillion plan to rebuild America's roads, bridges, and broadband networks."
+      description: "A historic $1.2 trillion plan to rebuild America's roads, bridges, and broadband networks.",
+      img: "https://picsum.photos/id/231/400/400"
     },
     {
       id: 232,
       title: "Global Leaders Gather for Climate Summit in Paris",
-      description: "Discussions center around emissions targets, clean energy innovations, and climate finance."
+      description: "Discussions center around emissions targets, clean energy innovations, and climate finance.",
+      img: "https://picsum.photos/id/232/400/400"
     },
     {
       id: 233,
       title: "Tech Giant Unveils Breakthrough in Quantum Computing",
-      description: "Promises to revolutionize industries from cryptography to pharmaceuticals."
+      description: "Promises to revolutionize industries from cryptography to pharmaceuticals.",
+      img: "https://picsum.photos/id/233/400/400"
     },
     {
       id: 234,
       title: "New Vaccine Shows Promise Against Emerging Virus Variant",
-      description: "Early trials show increased efficacy and fewer side effects compared to earlier versions."
+      description: "Early trials show increased efficacy and fewer side effects compared to earlier versions.",
+      img: ""
     },
     {
       id: 235,
       title: "Electric Vehicle Sales Surge Globally in 2025",
-      description: "Consumers embrace sustainability with record-breaking EV purchases this year."
+      description: "Consumers embrace sustainability with record-breaking EV purchases this year.",
+      img: "https://picsum.photos/id/235/400/400"
     },
     {
       id: 236,
       title: "Breakthrough in Renewable Energy Storage Unveiled",
-      description: "Scientists develop a new battery with 5x energy density."
+      description: "Scientists develop a new battery with 5x energy density. Scientists develop a new battery with 5x energy density. Scientists develop a new battery with 5x energy density.",
+      img: "https://picsum.photos/id/236/400/400"
     },
     {
       id: 237,
       title: "Archaeologists Discover Ancient City in the Amazon",
-      description: "Findings could rewrite the history of early civilizations in South America."
+      description: "Findings could rewrite the history of early civilizations in South America. Findings could rewrite the history of early civilizations in South America. Findings could rewrite the history of early civilizations in South America.",
+      img: ""
     },
     {
       id: 238,
       title: "AI Beats Human Champions in Multi-Disciplinary Games",
-      description: "A new AI sets records in both strategic and creative competitions."
+      description: "A new AI sets records in both strategic and creative competitions.",
+      img: "https://picsum.photos/id/238/400/400"
     },
     {
       id: 239,
       title: "Mars Rover Sends Back Most Detailed Images Yet",
-      description: "NASA reveals unprecedented surface detail from the red planet."
+      description: "NASA reveals unprecedented surface detail from the red planet.",
+      img: "https://picsum.photos/id/239/400/400"
     },
     {
       id: 240,
       title: "Cities Turn to Smart Infrastructure to Combat Climate Change",
-      description: "Urban centers are deploying technology to reduce emissions and improve resilience."
+      description: "Urban centers are deploying technology to reduce emissions and improve resilience.",
+      img: "https://picsum.photos/id/240/400/400"
     }
   ];
 
@@ -140,23 +150,23 @@ export default function HomePage() {
     },
   ];
 
-  const bestOf2023Items = [
+  const bestOf2025Items = [
     {
       id: 301,
-      title: "Blockbuster Bliss: Top 2023 Movies That Owned the Big Screen",
-      description: "From heartwarming dramas to action-packed adventures, explore the must-watch films that dominated cinemas and captured audiences' hearts in 2023.",
+      title: "Blockbuster Bliss: Top 2025 Movies That Owned the Big Screen",
+      description: "From heartwarming dramas to action-packed adventures, explore the must-watch films that dominated cinemas and captured audiences' hearts in 2025.",
       readTime: "5 min read"
     },
     {
       id: 302,
-      title: "TikTok Triumphs: The Viral Trends That Defined 2023",
+      title: "TikTok Triumphs: The Viral Trends That Defined 2025",
       description: "Delve into the TikTok trends that took the internet by storm, from dance crazes to challenges that kept us scrolling and sharing throughout the year.",
       readTime: "4 min read"
     },
     {
       id: 3,
-      title: "TV Shows: Best Shows That Glued Us to the Couch in 2023",
-      description: "Uncover the television series that kept us binge-watching, laughing, and crying, making 2023 a remarkable year for small-screen entertainment.",
+      title: "TV Shows: Best Shows That Glued Us to the Couch in 2025",
+      description: "Uncover the television series that kept us binge-watching, laughing, and crying, making 2025 a remarkable year for small-screen entertainment.",
       readTime: "4 min read"
     }
   ];
@@ -197,9 +207,9 @@ export default function HomePage() {
   return (
     <div className="bg-white text-black">
       {/* Navigation */}
-      <header className="flex flex-wrap md:flex-nowrap justify-between items-center p-4 border-b gap-4">
+      <header className="flex flex-wrap md:flex-nowrap justify-between 2xl:px-40 xl:px-30 lg:px-24 items-center p-4 gap-4">
         <div className="flex flex-wrap md:flex-nowrap items-center space-x-4 w-full md:w-auto">
-          <div className="text-2xl font-bold">ZENITH</div>
+          <div className="text-2xl font-bold pr-[3rem]">ZENITH</div>
           <nav className="flex flex-wrap space-x-4 text-sm">
           <a href="#home" className="hover:underline">Home</a>
             <a href="#latest-news" className="hover:underline">Latest News</a>
@@ -209,38 +219,41 @@ export default function HomePage() {
           </nav>
         </div>
         <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2 w-full md:w-auto">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="p-1 px-2 border rounded text-sm w-full sm:w-auto"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                if (query.trim()) {
-                  window.location.hash = `#search/${encodeURIComponent(query.trim())}`;     
-                }         
-              }
-            }}
-          />
+          <div className="flex">
+            <input
+              type="text"
+              placeholder="Search"
+              className="px-4 py-2 bg-gray-100 border-gray-800 rounded-full text-sm flex-1 w-full"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  if (query.trim()) {
+                    window.location.hash = `#search/${encodeURIComponent(query.trim())}`;     
+                  }         
+                }
+              }}
+            />
+            <Search size={16} className="tabsolute right-3 top-1/2 -translate-x-[200%] translate-y-[50%]" />
+          </div>
           <div className="flex space-x-2">
-            <a href="#signin" className="text-sm px-3 py-1 border rounded hover:bg-gray-100">Sign In</a>
-            <a href="#signup" className="text-sm px-3 py-1 bg-black text-white rounded hover:bg-gray-800">Sign Up</a>
+            <a href="#signin" className="px-4 py-2 text-black text-sm font-medium rounded-full">Sign In</a>
+            <a href="#signup" className="px-4 py-2 bg-gray-200 text-black text-sm font-medium rounded-full">Sign Up</a>
           </div>
         </div>
       </header>
       
       {/* Header with Large Logo and Categories */}
-      <section id="home" className="border-gray-400">
+      <section id="home" className="border-gray-400 2xl:px-40 xl:px-30 lg:px-24">
         <div className="text-5xl md:text-9xl font-bold text-center text-gray-100 tracking-wider mb-4">ZENITH</div>
         <div className="border-t border-gray-300" />
-        <div className="flex justify-between items-center px-4 py-2 text-sm">
-          <div className="flex flex-wrap gap-4 text-black">
-              <a href="#Politics" className="hover:underline">Politics</a>
-              <a href="World News" className="hover:underline">World News</a>
-              <a href="#BusinessandFinance" className="hover:underline">Business and Finance</a>
-              <a href="#ScienceandTechnology" className="hover:underline">Science and Technology</a>
-              <a href="#Entertainment" className="hover:underline">Entertainment</a>
-              <a href="#Sports" className="hover:underline">Sports</a>
-              <a href="#Wellness" className="hover:underline">Wellness</a>
+        <div className="flex flex-wrap justify-between items-center px-4 lg:px-0 xl:px-0 py-2 text-sm">
+          <div className="flex flex-wrap items-center gap-1 text-black">
+              <a href="#Politics" className="hover:underline">Politics</a><Dot size={32}/>
+              <a href="World News" className="hover:underline">World News</a><Dot size={32}/>
+              <a href="#BusinessandFinance" className="hover:underline">Business and Finance</a><Dot size={32}/>
+              <a href="#ScienceandTechnology" className="hover:underline">Science and Technology</a><Dot size={32}/>
+              <a href="#Entertainment" className="hover:underline">Entertainment</a><Dot size={32}/>
+              <a href="#Sports" className="hover:underline">Sports</a><Dot size={32}/>
+              <a href="#Wellness" className="hover:underline">Wellness</a><Dot size={32}/>
               <a href="#Lifestyle" className="hover:underline">Lifestyle</a>
           </div>
           <div className="flex items-center space-x-2 text-gray-700">
@@ -271,9 +284,9 @@ export default function HomePage() {
       </section>
 
       {/* Latest News Section */}
-      <section id="latest-news" className="p-6 pb-0">
+      <section id="latest-news" className="2xl:px-40 xl:px-30 lg:px-24 p-4 pb-0">
         <h2 className="text-xl font-semibold mb-4">Latest News</h2>
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           {[0, 4, 7].map((start, index) => (
             <div
               key={index}
@@ -286,19 +299,35 @@ export default function HomePage() {
                 <motion.div
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex flex-col overflow-hidden rounded cursor-pointer transition-transform duration-200 hover:shadow-md"
+                  className="flex flex-col overflow-hidden cursor-pointer transition-transform duration-200 hover:shadow-md"
                   variants={fadeInUp}
                   initial="hidden"
                   animate="visible"
                   transition={{ duration: 0.4, delay: idx * 0.2 }}
                 >
-                  <img
-                    src={`https://picsum.photos/id/${item.id}/400/300`}
+                  {item.img && index == 1 && (
+                    <img
+                    src={item.img}
                     alt={item.title}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-96 object-cover"
                   />
+                  )}
+
+                  {item.img && index != 1 && (
+                    <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-56 object-cover"
+                  />
+                  )}
+                  
                   <div className="space-y-2 p-2">
+                  {index === 1 ? (
+                    <h3 className="font-semibold text-2xl">{item.title}</h3>
+                  ) : (
                     <h3 className="font-semibold text-md">{item.title}</h3>
+                  )}
+                    
                     <p className="text-sm text-gray-600">{item.description}</p>
                     <div className="flex items-center justify-between text-xs text-gray-500">
                       <div className="flex items-center gap-1">
@@ -348,7 +377,7 @@ export default function HomePage() {
 
 
       {/* Top Picks Section */}
-      <section id="top-picks" className="p-6">
+      <section id="top-picks" className="2xl:px-40 xl:px-30 lg:px-24 p-4">
         <h2 className="text-xl font-semibold mb-4">Top Picks</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {newsItems2.map((item, index) => (
@@ -404,15 +433,15 @@ export default function HomePage() {
 
       </section>
 
-      {/* Best of 2023 Section */}
-      <section id="best-of-2025" className="px-6">
-        <h2 className="text-xl font-semibold mb-6 pb-2">Best of 2023</h2>
+      {/* Best of 2025 Section */}
+      <section id="best-of-2025" className="2xl:px-40 xl:px-30 lg:px-24 px-4">
+        <h2 className="text-xl font-semibold mb-6 pb-2">Best of 2025</h2>
         <div className="grid gap-8">
-          {bestOf2023Items.map((item) => (
+          {bestOf2025Items.map((item) => (
             <Link key={item.id} href={`#${item.id}`} scroll={false}>
-            <div key={item.id} className="grid grid-cols-1 md:grid-cols-2 gap-6 border-b pb-6 cursor-pointer transition-transform duration-200">
+            <div key={item.id} className="grid grid-cols-1 md:grid-cols-2 gap-12 border-b pb-6 cursor-pointer transition-transform duration-200">
               <div>
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                <h3 className="text-2xl font-semibold mb-2">{item.title}</h3>
                 <p className="text-sm text-gray-600 mb-4">{item.description}</p>
                 <div className="flex items-center text-xs text-gray-500">
                   <Clock size={14} className="mr-1" />
@@ -420,9 +449,9 @@ export default function HomePage() {
                 </div>
               </div>
               <img
-                src={`https://picsum.photos/id/${item.id}/500/300`}
+                src={`https://picsum.photos/id/${item.id}/500/400`}
                 alt={item.title}
-                className="w-full h-48 object-cover rounded"
+                className="w-full h-96 object-cover rounded"
               />
             </div>
             </Link>
@@ -431,7 +460,7 @@ export default function HomePage() {
       </section>
       
       {/* Cooking Section */}
-      <section className="p-6">
+      <section className="2xl:px-40 xl:px-30 lg:px-24 p-4">
         <h2 className="text-xl font-semibold mb-4">Cooking</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {cookingItems.map((item, index) => (
@@ -486,10 +515,10 @@ export default function HomePage() {
       </section>
 
       {/* Newsletter Section */}
-      <section id="newsletter" className="px-6 py-12 bg-white text-black">
-        <h2 className="text-xl font-semibold mb-6 border-b pb-2">Newsletter</h2>
+      <section id="newsletter" className="2xl:px-40 xl:px-30 lg:px-24 px-4 py-12 bg-white text-black">
+        <h2 className="text-xl font-semibold mb-6 border-t pt-6">Newsletter</h2>
 
-        <p className="text-2xl font-semibold mb-4 max-w-2xl">
+        <p className="text-4xl font-semibold mb-4">
           Subscribe to our newsletter now and step into a world of timely updates, curated stories,
           <span className="text-gray-400">
             {" "}
@@ -519,7 +548,7 @@ export default function HomePage() {
 
 
       {/* Footer */}
-      <footer className="bg-black text-white p-6 text-sm">
+      <footer className="bg-black text-white 2xl:px-40 xl:px-30 lg:px-24 p-4 text-sm">
   <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-700 pb-4 mb-4 gap-4">
     <div className="flex flex-wrap gap-2 md:space-x-4">
       <a href="#home" className="hover:underline">Homepage</a>
@@ -540,7 +569,7 @@ export default function HomePage() {
   <div className="text-5xl md:text-9xl font-bold text-center text-gray-800 tracking-wider mb-4">ZENITH</div>
 
   <div className="border-t border-gray-700 pt-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-    <span>© 2023 Appose Blog. All Rights Reserved.</span>
+    <span>© 2025 Appose Blog. All Rights Reserved.</span>
     <div className="flex flex-wrap gap-2 md:space-x-4">
       <a href="#privacy" className="hover:underline">Privacy Policy</a>
       <a href="#terms" className="hover:underline">Terms of Service</a>
