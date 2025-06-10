@@ -89,7 +89,12 @@ export default function Dashboard() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen font-sans bg-white text-black relative pb-24 md:pb-0">
+    <>
+      <link
+      href="https://fonts.google.com/specimen/Inter"
+      rel="stylesheet"
+    />
+    <div style={{ fontFamily: "'Inter', sans-serif" }} className="flex flex-col md:flex-row min-h-screen font-sans bg-white text-black relative pb-24 md:pb-0">
       {/* Sidebar */}
       <aside className="hidden md:block w-64 p-4 bg-black text-white space-y-4">
         <h1 className="text-2xl font-bold">Analytics Dashboard</h1>
@@ -376,5 +381,6 @@ export default function Dashboard() {
         </button>
       </nav>
     </div>
+    </>
   );
 }
