@@ -18,10 +18,25 @@ import {
   LayoutDashboard,
   CheckCircle,
   Download,
+  Dot,
   PieChart as PieIcon
 } from "lucide-react";
 
 const recapData = [
+  { name: "Mon", value: 20 },
+  { name: "Tue", value: 45 },
+  { name: "Wed", value: 30 },
+  { name: "Thu", value: 60 },
+  { name: "Fri", value: 40 },
+  { name: "Sat", value: 70 },
+  { name: "Sun", value: 50 },
+  { name: "Mon", value: 20 },
+  { name: "Tue", value: 45 },
+  { name: "Wed", value: 30 },
+  { name: "Thu", value: 60 },
+  { name: "Fri", value: 40 },
+  { name: "Sat", value: 70 },
+  { name: "Sun", value: 50 },
   { name: "Mon", value: 20 },
   { name: "Tue", value: 45 },
   { name: "Wed", value: 30 },
@@ -65,8 +80,11 @@ const payments = [
 ];
 
 const approvedQueue = [
-  { title: "Stock margin payment", date: "14/04/2024", amount: "$122304" },
-  { title: "Stock margin payment", date: "14/04/2024", amount: "$1004" },
+  { title: "Stock margin payment", date: "14/04/2024", amount: "$122304", min: "3m" },
+  { title: "Stock margin payment", date: "14/04/2024", amount: "$1004", min: "3m" },
+  { title: "Stock margin payment", date: "14/04/2024", amount: "$122304", min: "3m" },
+  { title: "Stock margin payment", date: "14/04/2024", amount: "$1004", min: "3m" },
+  { title: "Stock margin payment", date: "14/04/2024", amount: "$122304", min: "3m" },
 ];
 
 const downloadStats = () => {
@@ -87,7 +105,15 @@ const downloadStats = () => {
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("recap");
   const [showModal, setShowModal] = useState(false);
+  const [showModalQueue, setShowModalQueue] = useState(false);
+  const [queueDetail, setQueueDetail] = useState<  { title: string, date:string, amount: string, min: string }>();
 
+  const [showModalRecent, setShowModalRecent] = useState(false);
+  const [recentDetail, setRecentDetail] = useState<  { name: string, amount:string, time: string }>();
+
+
+  const [showModalStatus, setShowModalStatus] = useState(false);
+  const [statusDetail, setStatusDetail] = useState< string >('');
   return (
     <>
       <link
@@ -127,29 +153,41 @@ export default function Dashboard() {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-4 md:p-8 space-y-6 bg-white">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-6"
-        >
-{activeTab === "recap" && (
-            <>
+      <main className="flex-1 bg-gray-100">
+       { activeTab === "approved" && (
+        <h2 className="text-2xl font-bold p-4 md:p-8">Approved</h2>
+       )}
+
+      {activeTab === "stats"  && (
+        <h2 className="text-2xl font-bold teal-50 p-4 md:p-8">Statistics</h2>
+      )}
+
+      {activeTab === "recap"  && (
+        <h2 className="text-2xl font-bold teal-50 p-4 md:p-8">Weekly recap</h2>
+      )}
+
+        {activeTab === "recap" && (
+          <div className="space-y-6 p-4 md:p-8 pt-4 md:pt-4 bg-white m-0 md:m-2 rounded-t-3xl">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-6"
+            >
               <div className="space-y-1">
-                <h2 className="text-2xl font-bold">Weekly recap</h2>
                 <p className="text-gray-500 text-sm">Statistics overview</p>
               </div>
 
-              <div className="bg-gray-100 p-4 rounded-xl shadow-sm">
+              <div className="bg-teal-50 p-4 rounded-xl shadow-sm">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs text-green-800 bg-green-200 px-2 py-1 rounded-full">
+                  <span className="text-xs bg-lime-200 px-2 py-1 rounded-full">
                     +25%
                   </span>
-                  <span className="text-3xl font-bold">98.5k</span>
+                  <span className="text-3xl font-bold">98,5k</span>
                 </div>
-                <p className="text-sm text-gray-600 mb-4">Approved transactions</p>
+                <p>Approved transactions</p>
+                <p className="text-sm text-gray-600 mb-4">Regular review of statements</p>
                 <ResponsiveContainer width="100%" height={100}>
                   <LineChart data={recapData}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -159,32 +197,75 @@ export default function Dashboard() {
                     <Line
                       type="monotone"
                       dataKey="value"
-                      stroke="#0f172a"
+                      stroke="#00786F"
                       strokeWidth={2}
                       dot={false}
                     />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
-
-              <div className="bg-yellow-300 rounded-xl p-4 flex items-center space-x-4 shadow">
+            </motion.div>
+            <motion.div 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="flex bg-lime-200 rounded-xl p-4 items-center space-x-4 shadow items-start  overflow-hidden">
+              
                 <div className="bg-black text-white p-2 rounded-full">
                   <FileText size={20} />
                 </div>
                 <p className="text-sm text-black">
                   Transactions and reporting are in compliance with regulations and policies
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center text-sm">
-                <div>
-                  <p className="font-bold text-xl">36.7k</p>
-                  <p className="text-gray-500">Transactions</p>
-                </div>
-                <div>
-                  <p className="font-bold text-xl">18.5k</p>
-                  <p className="text-gray-500">Pending flow</p>
-                </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+                
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                onClick={() => {
+                  setShowModalStatus(true);
+                  setStatusDetail('Completed');
+                }}  
+                className="bg-gray-100 rounded-xl shadow p-4 items-center space-x-4 items-start  overflow-hidden cursor-pointer">
+                  <div className="flex items-center">
+                    <Dot color="#7CCF00"/><p className="text-gray-500">Completed</p>
+                  </div>
+                  <p className="font-bold text-xl pl-2">36.7k</p>
+                  <p className="text-gray-500 pl-2">transactions</p>
+                </motion.div>
+                <motion.div 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                onClick={() => {
+                  setShowModalStatus(true);
+                  setStatusDetail('Pending');
+                }}  
+                className="bg-yellow-100 rounded-xl shadow p-4 items-center space-x-4 items-start  overflow-hidden cursor-pointer">
+                  <div className="flex items-center">
+                    <Dot color="#FDC700"/><p className="text-gray-500"><span>Pending flow</span></p>
+                  </div>
+                  <p className="font-bold text-xl pl-2">18.5k</p>
+                  <p className="text-gray-500 pl-2">transactions</p>
+                </motion.div>
+                <motion.div 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                onClick={() => {
+                  setShowModalStatus(true);
+                  setStatusDetail('Cancelled');
+                }}   
+                className="bg-red-100 rounded-xl shadow p-4 items-center space-x-4 items-start  overflow-hidden cursor-pointer">
+                  <div className="flex items-center">
+                    <Dot color="#FF6900"/><p className="text-gray-500"><span>Cancelled</span></p>
+                  </div>
+                  <p className="font-bold text-xl pl-2">18.5k</p>
+                  <p className="text-gray-500 pl-2">transactions</p>
+                </motion.div>
               </div>
 
               <div>
@@ -193,10 +274,14 @@ export default function Dashboard() {
                   {payments.map((p) => (
                     <motion.div
                       key={p.name}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="bg-gray-100 p-3 rounded-lg shadow-sm flex justify-between items-center"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.99 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      onClick={() => {
+                        setShowModalRecent(true);
+                        setRecentDetail(p);
+                      }}   
+                      className="bg-gray-100 p-3 rounded-lg shadow-sm flex justify-between items-center cursor-pointer"
                     >
                       <div>
                         <p className="font-medium">{p.name}</p>
@@ -207,24 +292,87 @@ export default function Dashboard() {
                   ))}
                 </div>
               </div>
-            </>
+            </div>
           )}
 
-          {activeTab === "stats" && (
-            <div className="space-y-6">
-              <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Statistics</h2>
+        {showModalStatus && (
+          <motion.div 
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            initial={{ opacity: 1.5 }}
+            animate={{ opacity: 0.98 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+            >
+              <h3 className="text-xl font-bold mb-2">Transactions Details</h3>
+                <div>
+                  <p className="font-medium text-sm">• {statusDetail}</p>
+                  <p className="text-xs text-gray-400">This represents the amount of {statusDetail} transactions quaterly update.</p>
+                </div>
+                  <p className="font-semibold text-right pt-2">Total: 36.7k</p>
               <button
-                  onClick={downloadStats}
-                  className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded shadow"
-                >
-                  <Download size={18} /> Download
-                </button>
-            </div>
-              <p className="text-gray-500 text-sm">Comparison</p>
-              <div className="bg-gray-100 p-4 rounded-xl shadow">
-                <h3 className="font-semibold text-lg mb-1">Comparison</h3>
-                <p className="text-sm text-gray-500 mb-4">Amount of fraud transactions</p>
+                onClick={() => {
+                  setShowModalStatus(false);
+                }}
+                className="mt-2 bg-black text-white px-4 py-2 rounded"
+              >
+                Close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {showModalRecent && (
+          <motion.div 
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            initial={{ opacity: 1.5 }}
+            animate={{ opacity: 0.98 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+            >
+              <h3 className="text-xl font-bold mb-2">Queue Details</h3>
+                <div>
+                  <p className="font-medium text-sm">• {recentDetail?.name}</p>
+                  <p className="text-xs text-gray-400">{recentDetail?.time}</p>
+                </div>
+                  <p className="font-semibold text-right">Total: {recentDetail?.amount}</p>
+              <button
+                onClick={() => {
+                  setShowModalRecent(false);
+                }}
+                className="mt-2 bg-black text-white px-4 py-2 rounded"
+              >
+                Close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+
+          {activeTab === "stats" && (
+            <div className="space-y-6 p-4 md:p-8 pt-4 md:pt-4 bg-white m-0 md:m-2 rounded-t-3xl">
+              <div className="bg-teal-50 p-4 rounded-xl shadow">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1">Comparison</h3>
+                    <p className="text-sm text-gray-500 mb-4">Amount of fraud transactions</p>
+                  </div>
+                
+                  <button
+                    onClick={downloadStats}
+                    className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded shadow"
+                  >
+                    <Download size={18} /> Download
+                  </button>
+                </div>
                 <ResponsiveContainer width="100%" height={200}>
                 <LineChart data={comparisonData}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -245,33 +393,37 @@ export default function Dashboard() {
                 <ResponsiveContainer width="100%" height={160}>
 
                 <PieChart>
-    <Pie
-      data={trafficData}
-      cx="50%"
-      cy="90%"
-      startAngle={180}
-      endAngle={0}
-      innerRadius={60}
-      outerRadius={80}
-      fill="#8884d8"
-      paddingAngle={5}
-      dataKey="value"
-      label
-    >
-      {trafficData.map((entry, index) => (
-        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-      ))}
+                  <Pie
+                    data={trafficData}
+                    cx="50%"
+                    cy="90%"
+                    startAngle={180}
+                    endAngle={0}
+                    innerRadius={60}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    paddingAngle={5}
+                    dataKey="value"
+                    label
+                  >
+                    {trafficData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
 
-    </Pie>
-    <Tooltip />
-    <Legend layout="horizontal" verticalAlign="bottom" align="center" />
+                  </Pie>
+                  <Tooltip />
+                  <Legend layout="horizontal" verticalAlign="bottom" align="center" />
 
-  </PieChart>
+                </PieChart>
               </ResponsiveContainer>
 
               </div>
 
-              <div className="bg-gray-100 p-4 rounded-xl shadow">
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="bg-gray-100 p-4 rounded-xl shadow cursor-pointer">
                 <h4 className="font-semibold mb-2">Distribution</h4>
                 <div className="flex justify-between text-sm">
                   <p className="text-gray-500">2fa/ Verification</p>
@@ -281,31 +433,46 @@ export default function Dashboard() {
                   <p className="text-gray-500">Source on stats</p>
                   <p className="font-semibold">80.1%</p>
                 </div>
-              </div>
+                <div className="flex justify-between text-sm">
+                  <p className="text-gray-500">2fa/ Verification</p>
+                  <p className="font-semibold">82.0%</p>
+                </div>
+              </motion.div>
             </div>
           )}
 
           {activeTab === "approved" && (
-            <>
-              <h2 className="text-2xl font-bold">Approved</h2>
-              <div className="bg-yellow-300 p-6 rounded-xl shadow flex justify-between items-start">
-                <div>
-                  <p className="text-sm font-semibold">Q1 • 2024</p>
-                  <p className="text-3xl font-bold mt-1">84%</p>
-                  <p className="text-sm mt-2">
-                    Secure online payment gateway, fraud detection systems
-                  </p>
-                </div>
-                <button className="bg-black text-white px-3 py-1 rounded"           onClick={() => setShowModal(true)}
-                >+</button>
-              </div>
+            <div className="space-y-6 p-4 md:p-8 pt-4 md:pt-4 bg-white m-0 md:m-2 rounded-t-3xl">
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="flex p-4 md:p-8 bg-lime-200 p-6 rounded-xl shadow flex justify-between items-start  overflow-hidden cursor-pointer">
+                  <div className="w-full">
+                    <div>
+                      <p className="text-sm font-semibold mb-6">Q1 • 2024</p>
+                      <p className="text-3xl font-bold mt-1">84%</p>
+                      <p className="text-sm text-gray-500">
+                        Secure online payment gateway, fraud detection systems
+                      </p>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden mt-4">
+                      <div
+                        className="bg-neutral-950 h-full transition-all duration-300"
+                        style={{ width: `84%` }}
+                      ></div>
+                    </div>
+                  </div>
+                  <button className="bg-black text-white px-3 py-1 rounded" onClick={() => setShowModal(true)}
+                  >+</button>
+                </motion.div>
               <AnimatePresence>
 
         {showModal && (
           <motion.div 
             className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 1.5 }}
+            animate={{ opacity: 0.98 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
@@ -326,28 +493,71 @@ export default function Dashboard() {
           </motion.div>
         )}
       </AnimatePresence>
-              
-              <div className="bg-gray-100 p-4 rounded-xl shadow mt-4">
+     <div
+        className="bg-gray-100 p-4 rounded-xl shadow mt-4 overflow-hidden cursor-pointer">
                 <h4 className="text-green-600 font-semibold mb-2">Queue</h4>
                 <p className="text-sm text-gray-500 mb-4">Next to process</p>
                 <div className="space-y-2">
                   {approvedQueue.map((item, index) => (
-                    <div
-                      key={index}
+                     <motion.div 
+                     whileHover={{ scale: 1.02 }}
+                     whileTap={{ scale: 0.98 }}
+                     key={index}
+                     transition={{ type: "spring", stiffness: 300, damping: 20 }}       
+                     onClick={() => {
+                      setShowModalQueue(true);
+                      setQueueDetail(item);
+                    }}   
                       className="bg-white p-3 rounded-lg shadow-sm flex justify-between items-center"
                     >
                       <div>
-                        <p className="font-medium text-sm">{item.title}</p>
+                        <p className="font-medium text-sm">• {item.title}</p>
                         <p className="text-xs text-gray-400">{item.date}</p>
                       </div>
-                      <p className="font-semibold">{item.amount}</p>
-                    </div>
+                      <div>
+                        <p className="font-semibold">{item.amount}</p>
+                        <p className="text-xs text-gray-400 text-right">{item.min}</p>
+                      </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
-            </>
+              {showModalQueue && (
+          <motion.div 
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            initial={{ opacity: 1.5 }}
+            animate={{ opacity: 0.98 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+            >
+              <h3 className="text-xl font-bold mb-2">Queue Details</h3>
+                <div>
+                  <p className="font-medium text-sm">• {queueDetail?.title}</p>
+                  <p className="text-xs text-gray-400">{queueDetail?.date}</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-right">Total: {queueDetail?.amount}</p>
+                  <p className="text-xs text-gray-400 text-right">{queueDetail?.min}</p>
+                </div>
+              <button
+                onClick={() => {
+                  setShowModalQueue(false);
+                }}
+                className="mt-2 bg-black text-white px-4 py-2 rounded"
+              >
+                Close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+              
+            </div>
           )}
-        </motion.div>
       </main>
 
       {/* Mobile Bottom Navbar */}
@@ -355,7 +565,7 @@ export default function Dashboard() {
         <button
           onClick={() => setActiveTab("recap")}
           className={`flex flex-col items-center text-xs transition-colors ${
-            activeTab === "recap" ? "text-yellow-400" : "text-white"
+            activeTab === "recap" ? "text-lime-300" : "text-white"
           }`}
         >
           <LayoutDashboard size={20} />
@@ -364,7 +574,7 @@ export default function Dashboard() {
         <button
           onClick={() => setActiveTab("stats")}
           className={`flex flex-col items-center text-xs transition-colors ${
-            activeTab === "stats" ? "text-yellow-400" : "text-white"
+            activeTab === "stats" ? "text-lime-300" : "text-white"
           }`}
         >
           <PieIcon size={20} />
@@ -373,7 +583,7 @@ export default function Dashboard() {
         <button
           onClick={() => setActiveTab("approved")}
           className={`flex flex-col items-center text-xs transition-colors ${
-            activeTab === "approved" ? "text-yellow-400" : "text-white"
+            activeTab === "approved" ? "text-lime-300" : "text-white"
           }`}
         >
           <CheckCircle size={20} />
